@@ -1,0 +1,6 @@
+[
+    { "name": "Hoje"             , "value":  0 },
+    { "name": "Próximos 3 dias"  , "value":  3 },
+    { "name": "Próximos 7 dias"  , "value":  7 },
+    { "name": "Próximos 30 dias" , "value": 30 }
+]

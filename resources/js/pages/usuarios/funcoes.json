@@ -1,0 +1,7 @@
+[
+    { "value": 0, "label" : "Administrador(a)" },
+    { "value": 1, "label" : "Coordenador(a)" },
+    { "value": 2, "label" : "Recepcionista" },
+    { "value": 3, "label" : "Técnico(a)" }
+  
+]

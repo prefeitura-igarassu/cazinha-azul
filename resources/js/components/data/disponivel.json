@@ -1,0 +1,4 @@
+[
+    { "label": "Disponível"   , "value": 0 } ,
+    { "label": "Indisponível" , "value": 1 }
+]
