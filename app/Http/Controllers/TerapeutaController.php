@@ -85,12 +85,30 @@ class TerapeutaController extends BasicController
         return $horarios;
     }
 
+    public function search_applySelect( Request $request , &$model )
+    {
+        if( $request->filled( "select" ) )
+        {
+            return parent::search_applySelect( $request , $model );
+        }
+        
+        return $model = $model->select( DB::raw( 
+            "terapeutas.*, servico.nome as servico_nome, unidade.nome as unidade_nome"
+        ) );
+    }
+
+    public function search_join( Request $request , &$model , $selectedWasDefined = false )
+    {
+        $model = $model->join( "servicos as servico" , "servico.id" , "terapeutas.servico_id" )
+                       ->join( "unidades as unidade" , "unidade.id" , "terapeutas.unidade_id" );
+    }
+
     public function getSearchWhere()
     {
         return [
             "global" => function ( $query , $key , $value ){
                 $value = is_array( $value ) ? array_values( $value )[0] : $value;
-                return $query->orWhere( 'nome' , "like" , "%$value%" );
+                return $query->orWhere( 'terapeutas.nome' , "like" , "%$value%" );
             },
         ];
     }

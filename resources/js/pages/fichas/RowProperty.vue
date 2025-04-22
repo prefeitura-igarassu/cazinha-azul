@@ -1,7 +1,7 @@
 <template>
 
-    <div class="flex flex-row overflow-hidden">
-        <b class="w-40 border-black">{{ title }}:</b>
+    <div class="flex flex-row overflow-hidden gap-2">
+        <b class="sm:w-40 border-black">{{ title }}:</b>
         <div class="flex-auto text-left">
             {{ valueStr }}
             <span v-if="url || to" class="pi pi-external-link ml-2 cursor-pointer" @click="clicou"></span>

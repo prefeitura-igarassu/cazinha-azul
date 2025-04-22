@@ -27,13 +27,30 @@ class SessaoController extends BasicController
         ]);
     }
 
+    public function search_applySelect( Request $request , &$model )
+    {
+        if( $request->filled( "select" ) )
+        {
+            return parent::search_applySelect( $request , $model );
+        }
+        
+        return $model = $model->select( DB::raw( 
+            "sessoes.*, terapeuta.nome as terapeuta_nome, ficha.nome as ficha_nome, servico.nome as servico_nome"
+        ) );
+    }
+
+    public function search_join( Request $request , &$model , $selectedWasDefined = false )
+    {
+        $model = $model->leftJoin( "terapeutas as terapeuta" , "terapeuta.id" , "sessoes.terapeuta_id" )
+                       ->leftJoin( "servicos as servico"     , "servico.id"   , "sessoes.servico_id"   )
+                       ->leftJoin( "fichas as ficha"         , "ficha.id"     , "sessoes.ficha_id"     );
+    }
+
     public function getSearchWhere()
     {
         return [
-            "global" => function ( $query , $key , $value ){
-                $value = is_array( $value ) ? array_values( $value )[0] : $value;
-
-                return $query->orWhere( 'nome'    , "like" , "%$value%" );
+            "terapeuta_usuario_id" => function ( $query , $key , $value ){
+                return $query->where( 'terapeuta.usuario_id' , $value );
             },
         ];
     }

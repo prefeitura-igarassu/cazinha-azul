@@ -12,8 +12,9 @@ class Sessao extends Model
     
     const AGENDADO  = 0;
     const ATENTIDO  = 1;
-    const FALTOU    = 2;
-    const CANCELADO = 3;
+    const CANCELADO = 2;
+    const FALTOU    = 3;
+    const FALTA_JUSTIFICADA = 4;
 
     protected $table   = 'sessoes';       // nome da tabela
     protected $guarded = [];               // permite 'mass assignment'

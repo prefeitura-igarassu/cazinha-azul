@@ -6,6 +6,11 @@ export default ( parent ) => { return [{
     groups: [1,2],
     click: function (){ parent.setDialogNovo(); }
 } , { 
+    label:"Reposicionar", 
+    icon: "pi pi-history",
+    groups: [1,2],
+    click: function (){ parent.reposicionar(); }
+} , { 
     label:"Editar", 
     icon: "pi pi-pencil" , 
     class: "p-button-outlined", 

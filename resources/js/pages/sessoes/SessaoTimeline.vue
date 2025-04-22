@@ -1,8 +1,6 @@
 <template>
 
-<div class="mt-7 bg-white rounded-lg pt-4">
-    <div class="ml-4 text-2xl font-medium">Sessões Anteriores</div>
-
+<div class="">
     <div v-if="loading" class="m-6 text-center text-5xl font-medium">
         <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
         Carregando...
@@ -12,28 +10,26 @@
         Nenhum sessão anterior foi encontrada!
     </div>
 
-    <Timeline v-else :value="resultado.data" align="alternate">
-        <template #content="slotProps">
-            <Card class="mt-4">
-                <template #title>
-                    {{ dateFormat( slotProps.item.agendado_para ) }}
-                </template>
-                
-                <template #subtitle>
-                    {{ situacaoFormat( slotProps.item.status ) }}
-                </template>
+    <template v-for="(anterior,index) in resultado.data" :key="anterior.id">
+        <Card class="mt-4">
+            <template #title>
+                {{ dateFormat( anterior.agendado_para ) }}
+            </template>
+            
+            <template #subtitle>
+                {{ situacaoFormat( anterior.status ) }}
+            </template>
 
-                <template #content>
-                    <p v-if="slotProps.item.evolucao" v-html="slotProps.item.evolucao"></p>
+            <template #content>
+                <p v-if="anterior.evolucao" v-html="anterior.evolucao"></p>
 
-                    <p v-if="slotProps.item.observacao">
-                        <b class="block">Observação:</b>
-                        <div>{{ slotProps.item.observacao }}</div>
-                    </p>
-                </template>
-            </Card>
-        </template>
-    </Timeline>
+                <p v-if="anterior.observacao">
+                    <b class="block">Observação:</b>
+                    <div>{{ anterior.observacao }}</div>
+                </p>
+            </template>
+        </Card>
+    </template>
 
     <Paginator 
         class="mt-4"

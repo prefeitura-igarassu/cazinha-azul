@@ -1,22 +1,19 @@
 <template>
-    <Page title="Lista de Espera">
-        <Table 
-            tableId="lista-de-espera"
-            :service="service" 
-            :columns="columns"
-            :actions="actions" 
-            empty="Nenhuma ficha foi encontrada."
-            selectionMode="multiple"
-            @visualizar="visualizar"
-            @dialog="setDialog"
-            :filters="filters"
-            :hasChips="false"
-            :hasGlobalFilter="false"
-            :searchInline="[]"
-            :with="['ficha']"
-            ref="tabela"
-        ></Table>
-    </Page>
+    <Table 
+        tableId="lista-de-espera"
+        :service="service" 
+        :columns="columns"
+        :actions="actions" 
+        empty="Nenhuma ficha foi encontrada."
+        selectionMode="multiple"
+        @visualizar="visualizar"
+        :filters="filters"
+        :hasChips="false"
+        :hasGlobalFilter="false"
+        :searchInline="[]"
+        :with="['ficha']"
+        ref="tabela"
+    ></Table>
 </template>
 
 <script>
@@ -29,7 +26,7 @@ import dayjs   from "dayjs";
 
 export default {
     components: { Page, Table },
-    props: [ "terapeuta_id" ],
+    props: [ "servico_id" , "unidade_id" ],
 
     data() {
         return {
@@ -42,8 +39,8 @@ export default {
     computed: {
         filters(){
             return { 
-                terapeuta_id: this.terapeuta_id,
-                dia: null,
+                servico_id: this.servico_id,
+                unidade_id: this.unidade_id,
                 status: 0,
 
                 orderBy: "posicao,asc"
@@ -59,6 +56,19 @@ export default {
         pesquisar(){
             this.$refs.tabela.pesquisar();
         },
+
+        reposicionar(){
+            let servico_id = this.servico_id;
+            let unidade_id = this.unidade_id;
+
+            service.fichas_servicos.getGeneric( `/fichas/servicos/reposicionar?servico_id=${servico_id}&unidade_id=${unidade_id}` ).then( r => {
+                this.pesquisar();
+            });
+        },
+
+        setDialogNovo(){
+            // faz nada
+        }
     },
 }
 </script>

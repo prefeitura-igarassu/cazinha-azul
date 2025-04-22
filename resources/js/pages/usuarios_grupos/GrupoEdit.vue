@@ -109,7 +109,7 @@ export default {
         },
 
         voltar(){
-            this.$router.push( "/grupos" );
+            this.$router.push( "/usuarios" );
         }
     },
 

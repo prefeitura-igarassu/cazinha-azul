@@ -33,6 +33,13 @@ class FichaController extends BasicController
         ]);
     }
 
+    public function imprimir( Request $request , $ficha )
+    {
+        return view( "ficha" , [
+            "ficha" => $ficha
+        ] );
+    }
+
     public function getSearchWhere()
     {
         return [

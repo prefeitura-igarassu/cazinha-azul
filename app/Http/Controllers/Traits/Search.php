@@ -101,7 +101,7 @@ trait Search
 
     public function search_applyWhereValue( &$model , $key , $value , $table )
     {
-        $key =  "$table.$key";
+        $key = "$table.$key";
 
         if( !is_array( $value ) ){                          // ex., 10, 'teste', true
             $model = $model->where( $key , $value );

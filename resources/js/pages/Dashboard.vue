@@ -1,14 +1,16 @@
 <template>
 	<div v-if="!isLogged"></div>
+	<TerapeutaDashboard v-else-if="isTerapeuta"></TerapeutaDashboard>
 </template>
 
 <script>
 import Button from "primevue/button";
 
 import service from "@/services/Service";
+import TerapeutaDashboard from "./dashboards/TerapeutaDashboard.vue";
 
 export default {
-	components: { Button },
+	components: { Button, TerapeutaDashboard },
 
 	computed: {
 		isAdmin(){
@@ -17,6 +19,10 @@ export default {
 
 		isLogged(){
 			return service.usuarioLogado?.id;
+		},
+
+		isTerapeuta(){
+			return true; //service.usuarioLogado.grupo_id == 5;
 		},
 	},
 

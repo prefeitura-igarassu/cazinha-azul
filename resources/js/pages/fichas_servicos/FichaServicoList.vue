@@ -37,7 +37,7 @@
                         <small v-if="solicitacao.status == 0" class="block">Solicitado em {{ dateFormat( solicitacao.solicitado_em ) }}</small>
                     </div>
 
-                    <div class="flex flex-column ml-3">
+                    <div class="flex flex-column ml-3" v-if="ficha">
                             <Button icon="pi pi-pencil" size="small" text @click="editar( solicitacao )"></Button>
                             <Button icon="pi pi-trash"  size="small" text @click="excluir( solicitacao )"></Button>
                         </div>
@@ -80,6 +80,9 @@ export default {
 
     methods: {
         pesquisar(){
+            this.solicitacoes = [];
+            if( !this.ficha ) return ;
+
             const params = {
                 ficha_id: this.ficha.id,
                 with: [ 'terapeuta' , 'servico' ]

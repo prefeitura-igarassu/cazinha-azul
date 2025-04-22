@@ -61,7 +61,7 @@ Route::middleware([ 'auth:sanctum', 'verified' ])->group(function () use ( $cont
     $controllers[] = addRota( "unidades"          , "unidade"           , \App\Http\Controllers\UnidadeController::class        );
 	$controllers[] = addRota( "fichas/andamentos" , "fichas_andamentos" , \App\Http\Controllers\FichaAndamentoController::class );
 	
-    Route::get( "/fichas/servicos/recalcular"                 , [ \App\Http\Controllers\FichaServicoController::class , 'recalcularPosicao' ] );
+    Route::get( "/fichas/servicos/reposicionar"               , [ \App\Http\Controllers\FichaServicoController::class , 'reposicionar'      ] );
     Route::get( "/fichas/servicos/ultima"                     , [ \App\Http\Controllers\FichaServicoController::class , 'getUltimaPosicao'  ] );
     $controllers[] = addRota( "fichas/servicos"   , "fichas_servicos"   , \App\Http\Controllers\FichaServicoController::class   );
 	
@@ -161,7 +161,7 @@ function addRota( $plural , $singular , $controller ){
     Route::delete( "/{$plural}/{{$singular}}" , [ $controller , 'destroy' ] )
         ->name( "{$plural}.destroy" );
 
-    Route::get( "/{$plural}/imprimir/{{$singular}}" , [ $controller , 'imprimir' ] )
+    Route::get( "/{$plural}/{{$singular}}/imprimir" , [ $controller , 'imprimir' ] )
         ->name( "{$plural}.imprimir" );
 
     Route::get( "/{$plural}/{{$singular}}.png" , [ $controller , 'getImage' ] )

@@ -1,6 +1,6 @@
 <template>
 
-<Dialog :visible="visible" position="top" :modal="true" @hide="cancelar" header="Solicitar" @update:visible="updatedVisible" style="min-width: 50%">
+<Dialog :visible="visible" position="top" :modal="true" @hide="cancelar" header="Solicitar" @update:visible="updatedVisible" style="min-width: 80%">
     <Errors :errors="errors"></Errors>
     
     <div class="formgrid grid">
@@ -115,7 +115,7 @@ export default {
 
             service.servicos.getOptions().then( r => this.servicos = r );
 
-            if( !this.solicitacao.ficha_id )
+            if( this.solicitacao && !this.solicitacao.ficha_id )
             {
                 service.fichas.getOptions().then( r => this.fichas = r );
             }

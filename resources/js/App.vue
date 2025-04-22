@@ -34,7 +34,7 @@
     <div class="flex-1 flex flex-col">
       <main class="flex-1 overflow-y-auto p-4" style="background-color: #f2f2f2 !important;">
         <button class="text-gray-500 focus:outline-none lg:hidden" @click="menuMostrar = true">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span class="pi pi-bars m-2" style="font-size: 1rem"></span>
         </button>
 
         <router-view></router-view>

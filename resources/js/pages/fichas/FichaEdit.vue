@@ -108,8 +108,14 @@ export default {
         salvar(){
             this.loading = true;
 
-            if( this.ficha.cid ){
+            if( this.ficha.cid )
+            {
                 this.ficha.cid = this.ficha.cid.split( "," );
+            }
+
+            if( this.ficha.cadasrado_em.split( ":" ).length == 2 )
+            {
+                this.ficha.cadasrado_em += ":00";
             }
 
             let request = this.id 

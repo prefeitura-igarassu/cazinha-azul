@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>{{ $header['title'] ?? "Exportar" }}</title>
-
-    <!-- <link rel="stylesheet" href="https://getbootstrap.com/2.3.2/assets/css/bootstrap.css"> -->
+    <title>{{ $ficha->nome }}</title>
     <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
     
     <style>
@@ -77,10 +75,42 @@
         .text-xs { font-size: 4pt; }
         .text-sm { font-size: 8pt; }
     </style>
-
-    <x-style :styles="$header['styles']"></x-style>
 </head>
 
-<x-element :data="$body"></x-element>
+<body>
+
+    <div class="flex flex-column">
+        <div class="flex text-4xl font-bold align-items-center">
+            <img src="/fichas/{{$ficha->id}}.png" class="mr-2 w-1" />
+            {{ $ficha->nome }}
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+            <div class="flex flex-column flex-wrap my-4">
+                <x-property title="Unidade"        :value="$ficha->unidade->nome"                ></x-property>
+                <x-property title="Cadastrado em"  :value="$ficha->cadastrado_em" type="datetime"></x-property>
+                <x-property title="CPF Nº"         :value="$ficha->cpf"           type="cpf_cnpj"></x-property>
+                <x-property title="Nascido em"     :value="$ficha->nascido_em"    type="date"    ></x-property>
+                <x-property title="SUS Nº"         :value="$ficha->sus"                          ></x-property>
+                <x-property title="NIS Nº"         :value="$ficha->nis"                          ></x-property>
+                <x-property title="Posto de Saúde" :value="$ficha->posto_saude"                  ></x-property>
+            </div>
+
+            <div class="flex flex-column flex-wrap my-4">
+                <x-property title="Mãe"            :value="$ficha->mae_nome"                     ></x-property>
+                <x-property title="Pai"            :value="$ficha->pai_nome"                     ></x-property>
+                <x-property title="Responsável"    :value="$ficha->responsavel"                  ></x-property>
+                <x-property title="Escola"         :value="$ficha->escola"                       ></x-property>
+                <x-property title="Endereço"       :value="$ficha->endereco"                     ></x-property>
+                <x-property title="Telefone"       :value="$ficha->telefone"                     ></x-property>
+                <x-property title="E-mail"         :value="$ficha->email"                        ></x-property>
+            </div>
+        </div>
+
+        <x-property title="CID's"                 :value="$ficha->cids"              type="array"></x-property>
+        <x-property col="" title="Observação"     :value="$ficha->observacao"                    ></x-property>
+    </div>
+
+</body>
 
 </html>

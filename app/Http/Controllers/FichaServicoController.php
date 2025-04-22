@@ -111,18 +111,17 @@ class FichaServicoController extends BasicController
         }
     }
 
-    public function recalcularPosicao( Request $request )
+    public function reposicionar( Request $request )
     {
         $validated = $request->validate([
             "unidade_id" => [ "required" , "integer" ],
             "servico_id" => [ "required" , "integer" ],
         ]);
-
-
+        
         DB::select( "SET @row_number = 0;" );
         DB::update( "UPDATE fichas_servicos SET posicao = (@row_number := @row_number + 1) 
             WHERE status = 0 AND servico_id = ? AND unidade_id = ? AND deleted_at IS NULL;" , 
-            [ $validated['unidade_id'] , $validated['servico_id'] ]
+            [ $validated['servico_id'] , $validated['unidade_id'] ]
         );
     }
 
@@ -140,6 +139,38 @@ class FichaServicoController extends BasicController
             ->first()?->posicao;
     }
 
+    // ------ //
+    // ------ //
+    // ------ //
+
+    public function search_applySelect( Request $request , &$model )
+    {
+        if( $request->filled( "select" ) )
+        {
+            return parent::search_applySelect( $request , $model );
+        }
+        
+        return $model = $model->select( DB::raw( 
+            "fichas_servicos.*, terapeuta.nome as terapeuta_nome, ficha.nome as ficha_nome, servico.nome as servico_nome"
+        ) );
+    }
+
+    public function search_join( Request $request , &$model , $selectedWasDefined = false )
+    {
+        $model = $model->leftJoin( "terapeutas as terapeuta" , "terapeuta.id" , "fichas_servicos.terapeuta_id" )
+                       ->leftJoin( "servicos as servico"     , "servico.id"   , "fichas_servicos.servico_id"   )
+                       ->leftJoin( "fichas as ficha"         , "ficha.id"     , "fichas_servicos.ficha_id"     );
+    }
+
+    public function getSearchWhere()
+    {
+        return [
+            "terapeuta_usuario_id" => function ( $query , $key , $value ){
+                return $query->where( 'terapeuta.usuario_id' , $value );
+            },
+        ];
+    }
+    
     public function getRegras( Request $request , $acao = 'insert' )
     {
         return [

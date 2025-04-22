@@ -18,7 +18,7 @@
                 <Tab value="0">Horários</Tab>
                 <Tab value="1">Lista de Espera</Tab>
             </TabList>
-            
+
             <TabPanels>
                 <TabPanel value="0">
                     <ul>
@@ -44,7 +44,7 @@
                 </TabPanel>
 
                 <TabPanel value="1">
-                    <ListaDeEsperaTable :terapeuta_id="id"></ListaDeEsperaTable>
+                    <ListaDeEsperaTable :servico_id="terapeuta?.servico_id" :unidade_id="terapeuta?.unidade_id"></ListaDeEsperaTable>
                 </TabPanel>
             </TabPanels>
         </Tabs>
